@@ -47,7 +47,7 @@ class TrainingConfig:
     save_total_limit: int = 3
     fp16: bool = False
     bf16: bool = True
-    max_seq_length: int = 512
+    # max_seq_length: int = 512 여기서 제외하고 아래에 DataConfig에 붙임
     optim: str = "paged_adamw_32bit"
     group_by_length: bool = True
     report_to: str = "wandb"
@@ -60,6 +60,7 @@ class DataConfig:
     eval_data_path: Optional[str] = None
     max_samples: Optional[int] = None
     test_size: float = 0.1
+    max_seq_length: int = 512 # 여기에 붙임
 
 
 @dataclass
