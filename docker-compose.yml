@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  training:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: question-decomposition-llm:latest
+    container_name: question-decomposition-training
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+      - PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512
+      - TRANSFORMERS_CACHE=/workspace/.cache/huggingface
+    volumes:
+      - .:/workspace
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    shm_size: '8gb'
+    stdin_open: true
+    tty: true
+    command: /bin/bash
