@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# DevContainer
+!.devcontainer/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Model files
+*.pth
+*.bin
+*.safetensors
+# Exclude model output directories but keep source code
+/models/
+checkpoints/
+outputs/
+results/
+wandb/
+runs/
+
+# Data
+data/raw/
+data/processed/
+*.csv
+*.tsv
+# Exclude data files but allow example data and config files
+/data/*.json
+/data/*.jsonl
+!data/examples/*.json
+!data/examples/*.jsonl
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Mac
+.DS_Store
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Hugging Face cache
+.cache/
