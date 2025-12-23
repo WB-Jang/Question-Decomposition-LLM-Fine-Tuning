@@ -76,7 +76,7 @@ class QuestionDecompositionTrainer:
             logging_steps=logging_steps,
             save_steps=save_steps,
             eval_steps=eval_steps,
-            eval_strategy=evaluation_strategy,
+            eval_strategy=eval_strategy,
             save_total_limit=save_total_limit,
             fp16=fp16,
             bf16=bf16,
