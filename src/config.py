@@ -43,7 +43,7 @@ class TrainingConfig:
     logging_steps: int = 10
     save_steps: int = 100
     eval_steps: int = 100
-    evaluation_strategy: str = "steps"
+    eval_strategy: str = "steps"
     save_total_limit: int = 3
     fp16: bool = False
     bf16: bool = True
