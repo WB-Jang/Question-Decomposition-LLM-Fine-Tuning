@@ -40,6 +40,9 @@ venv.bak/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# DevContainer
+!.devcontainer/
+
 # Jupyter Notebook
 .ipynb_checkpoints
 *.ipynb
@@ -48,7 +51,8 @@ venv.bak/
 *.pth
 *.bin
 *.safetensors
-models/
+# Exclude model output directories but keep source code
+/models/
 checkpoints/
 outputs/
 results/
@@ -60,8 +64,11 @@ data/raw/
 data/processed/
 *.csv
 *.tsv
-*.json
-*.jsonl
+# Exclude data files but allow example data and config files
+/data/*.json
+/data/*.jsonl
+!data/examples/*.json
+!data/examples/*.jsonl
 
 # Logs
 logs/
