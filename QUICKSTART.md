@@ -52,12 +52,7 @@ python3 train.py \
 
 ### 먼저 필요한 언어 모델을 따로 다운로드 하는 것을 추천 : RAM 한계
 ```bash
-pip install huggingface_hub
-
-python -c "
-from huggingface_hub import snapshot_download
-snapshot_download('Bllossom/llama-3.2-Korean-Bllossom-3B', resume_download=True)
-"
+python3 download_models.py
 ```
 ### 다운로드 받은 모델은 다음 경로에 있음 
 #### 기본 캐시 경로
