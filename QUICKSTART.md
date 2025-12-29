@@ -39,7 +39,7 @@ python3 verify.py
 ### 3. 샘플 데이터로 테스트 실행
 
 ```bash
-python train.py \
+python3 train.py \
   --model_name "meta-llama/Llama-2-7b-hf" \
   --output_dir "./outputs" \
   --num_epochs 1 \
@@ -56,7 +56,7 @@ pip install huggingface_hub
 
 python -c "
 from huggingface_hub import snapshot_download
-snapshot_download('beomi/Llama-3-Open-Ko-8B', resume_download=True)
+snapshot_download('Bllossom/llama-3.2-Korean-Bllossom-3B', resume_download=True)
 "
 ```
 ### 다운로드 받은 모델은 다음 경로에 있음 
@@ -83,7 +83,7 @@ free -h  # 확인
 
 ```bash
 python3 train.py \
-  --model_name "meta-llama/Llama-2-7b-hf" \
+  --model_name "Bllossom/llama-3.2-Korean-Bllossom-3B" \
   --output_dir "./outputs" \
   --num_epochs 3 \
   --batch_size 1 \
