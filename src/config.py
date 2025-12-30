@@ -3,7 +3,7 @@ Configuration management for training
 """
 import os
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Dict, Union
 
 
 @dataclass
@@ -12,7 +12,7 @@ class ModelConfig:
     model_name: str = "meta-llama/Llama-2-7b-hf"
     use_4bit: bool = True
     use_8bit: bool = False
-    device_map: str = "auto"
+    device_map: Union[str, Dict] = field(default_factory=lambda: {"": 0})
     trust_remote_code: bool = True
 
 
@@ -43,15 +43,15 @@ class TrainingConfig:
     logging_steps: int = 10
     save_steps: int = 100
     eval_steps: int = 100
-    eval_strategy: str = "steps"
+    evaluation_strategy: str = "no"
     save_total_limit: int = 3
     fp16: bool = False
     bf16: bool = True
     # max_seq_length: int = 512 여기서 제외하고 아래에 DataConfig에 붙임
-    optim: str = "paged_adamw_32bit"
+    optim: str = "paged_adamw_8bit"
     group_by_length: bool = True
     report_to: str = "wandb"
-
+   
 
 @dataclass
 class DataConfig:

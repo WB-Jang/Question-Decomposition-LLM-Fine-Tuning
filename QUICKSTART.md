@@ -31,12 +31,16 @@ pip install -r requirements.txt
 docker-compose up -d
 docker-compose exec training bash
 ```
+#### CUDA 호환성 검증 : 
+```bash
+python3 verify.py
+```
 
 ### 3. 샘플 데이터로 테스트 실행
 
 ```bash
-python train.py \
-  --model_name "meta-llama/Llama-2-7b-hf" \
+python3 train.py \
+  --model_name "Bllossom/llama-3.2-Korean-Bllossom-3B" \
   --output_dir "./outputs" \
   --num_epochs 1 \
   --batch_size 1
@@ -46,6 +50,26 @@ python train.py \
 
 ## RTX 4060 8GB 환경 (저메모리)
 
+### 먼저 필요한 언어 모델을 따로 다운로드 하는 것을 추천 : RAM 한계
+```bash
+python3 download_models.py
+```
+### 다운로드 받은 모델은 다음 경로에 있음 
+#### 기본 캐시 경로
+~/.cache/huggingface/hub/
+
+#### 실제 모델 저장 예시
+/root/. cache/huggingface/models--MLP-KTLim--llama-3-Korean-Bllossom-8B/snapshots/ed9647c18477ee09a03690c613c859eddca24362
+
+### 스왑 메모리 설정 (필수!)
+```bash
+sudo fallocate -l 16G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+free -h  # 확인
+```
+
 ```bash
 ./scripts/train_low_memory.sh
 ```
@@ -53,10 +77,11 @@ python train.py \
 또는:
 
 ```bash
-python train.py \
-  --model_name "meta-llama/Llama-2-7b-hf" \
+python3 train.py \
+  --model_name "/root/. cache/huggingface/models--MLP-KTLim--llama-3-Korean-Bllossom-8B/snapshots/ed9647c18477ee09a03690c613c859eddca24362" \
+  --train_data "./data/combined_question_decomposition_1_17.json"\
   --output_dir "./outputs" \
-  --num_epochs 3 \
+  --num_epochs 2 \
   --batch_size 1 \
   --lora_r 8 \
   --lora_alpha 16 \

@@ -8,14 +8,14 @@ from transformers import (
     BitsAndBytesConfig,
 )
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-from typing import Tuple
+from typing import Tuple, Optional
 
 
 def load_model_and_tokenizer(
     model_name: str,
     use_4bit: bool = True,
     use_8bit: bool = False,
-    device_map: str = "auto",
+    device_map={"": 0},
     trust_remote_code: bool = True
 ) -> Tuple[AutoModelForCausalLM, AutoTokenizer]:
     """
@@ -25,7 +25,7 @@ def load_model_and_tokenizer(
         model_name: Hugging Face model identifier
         use_4bit: Use 4-bit quantization
         use_8bit: Use 8-bit quantization
-        device_map: Device mapping strategy
+        device_map: 0 번 GPU 에 모든 레이어를 로드
         trust_remote_code: Trust remote code
         
     Returns:
@@ -37,7 +37,7 @@ def load_model_and_tokenizer(
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
-            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_compute_dtype=torch.bfloat16,
             bnb_4bit_use_double_quant=True,
         )
     elif use_8bit:
@@ -51,9 +51,11 @@ def load_model_and_tokenizer(
         quantization_config=bnb_config,
         device_map=device_map,
         trust_remote_code=trust_remote_code,
+        max_memory={0: "7500MiB", "cpu": "30GiB"}
     )
-    
+
     # Disable cache for training
+    model.gradient_checkpointing_enable()
     model.config.use_cache = False
     model.config.pretraining_tp = 1
     
@@ -126,7 +128,7 @@ def load_and_prepare_model(
     model_name: str,
     use_4bit: bool = True,
     use_8bit: bool = False,
-    device_map: str = "auto",
+    device_map: Optional[str] = None,
     lora_r: int = 16,
     lora_alpha: int = 32,
     lora_dropout: float = 0.05,

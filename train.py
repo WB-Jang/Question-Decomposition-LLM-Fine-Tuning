@@ -72,7 +72,7 @@ def parse_args():
     parser.add_argument(
         "--use_4bit",
         action="store_true",
-        default=True,
+        default=False,
         help="Use 4-bit quantization"
     )
     parser.add_argument(
