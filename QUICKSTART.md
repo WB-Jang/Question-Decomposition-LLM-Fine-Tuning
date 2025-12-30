@@ -36,6 +36,11 @@ docker-compose exec training bash
 python3 verify.py
 ```
 
+#### CUDA 호환성 검증 : 
+```bash
+python3 verify.py
+```
+#### 
 ### 3. 샘플 데이터로 테스트 실행
 
 ```bash

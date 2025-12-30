@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     ninja-build \
+    cmake \
+    ninja-build \
     && rm -rf /var/lib/apt/lists/*
 
 # Create symlink for python and pip
@@ -38,6 +40,16 @@ RUN curl -sSL https://install.python-poetry.org | python3 - && \
 
 # Set working directory
 WORKDIR /workspace
+
+# ✅ 최신 안정 버전 설치 (권장)
+RUN pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 \
+    --index-url https://download.pytorch.org/whl/cu121
+
+# ✅ GPU 관련 패키지 - 최신 버전 사용
+RUN pip install accelerate==0.27.2 bitsandbytes==0.43.0
+
+# 또는 보수적으로 가려면:
+# RUN pip install accelerate==0.26.0 bitsandbytes==0.43.0
 
 # ✅ 최신 안정 버전 설치 (권장)
 RUN pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 \
