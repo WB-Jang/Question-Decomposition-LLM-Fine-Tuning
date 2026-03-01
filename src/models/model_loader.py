@@ -55,7 +55,6 @@ def load_model_and_tokenizer(
     )
 
     # Disable cache for training
-    model.gradient_checkpointing_enable()
     model.config.use_cache = False
     model.config.pretraining_tp = 1
     
